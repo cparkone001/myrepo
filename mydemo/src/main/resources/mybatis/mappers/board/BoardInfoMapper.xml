@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mydemo.mapper.board.BoardInfoMapper">
+
+	<select id="selectBoardInfo" resultType="BoardInfoDto">
+		/** com.mydemo.mapper.board.BoardInfoMapper.selectBoardInfo */
+		SELECT	
+			 secnum            /*일런번호*/
+			,ref_secnum        /*참조_일련번호*/
+			,depth_num         /*답변깊이*/
+			,ref_order_num     /*답변순서*/
+			,title_nm          /*제목명*/
+			,contents_cnt      /*내용*/
+			,user_id           /*사용자ID*/
+			,user_nm           /*사용자명*/
+			,user_ip_addr_nm   /*작성자_IP_명*/
+			,email_addr_nm     /*이메이일주소명*/
+			,reg_usr_id        /*등록자ID*/
+			,upt_usr_id        /*변경자ID*/
+			,reg_dt_time       /*등록일시*/
+			,upt_dt_time       /*변경일시*/
+		FROM board_info
+		WHERE
+		  1=1 	
+		  <if test="secnum!=null and !secnum.equals('')">
+		   AND secnum = #{secnum}
+		  </if>
+	</select>
+	
+	<update id="updateBoardInfo" parameterType="BoardInfoDto" >
+		/** com.mydemo.mapper.board.BoardInfoMapper.updateBoardInfo */
+		UPDATE  board_info 
+		 SET  
+		upt_usr_id     = #{uptUsrId    }   /*변경자ID*/
+		<if test="depthNum!=null and !depthNum.equals('')">
+		  ,depth_num      =  #{depthNum     }       /*답변깊이*/
+		</if>	
+		<if test="refOrderNum!=null and !refOrderNum.equals('')">
+		,ref_order_num  =  #{refOrderNum  } /*답변순서*/
+		</if>
+		<if test="titleNm!=null and !titleNm.equals('')">
+		,title_nm        =  #{titleNm      }/*제목명*/
+		</if>
+		<if test="contentsCnt!=null and !contentsCnt.equals('')">
+		,contents_cnt    =  #{contentsCnt  }/*내용*/
+		</if>
+		<if test="userId!=null and !userId.equals('')">
+		,user_id         =  #{userId       }/*사용자ID*/
+		</if>
+		<if test="userNm!=null and !userNm.equals('')">
+		,user_nm         =  #{userNm       }/*사용자명*/
+		</if>
+		<if test="userIpAddrNm!=null and !userIpAddrNm.equals('')">
+		,user_ip_addr_nm  = #{userIpAddrNm }/*작성자_IP_명*/
+		</if>
+		<if test="emailAddrNm!=null and !emailAddrNm.equals('')">
+		,email_addr_nm    = #{emailAddrNm  } /*이메이일주소명*/
+		</if>
+		,upt_dt_time      = now() /*변경일시*/
+		WHERE
+		   secnum = #{secnum}
+	</update>	
+	
+	<insert id="insertBoardInfo" parameterType="BoardInfoDto">
+		/** com.mydemo.mapper.board.BoardInfoMapper.insertBoardInfo */
+		INSERT INTO board_info (
+		    secnum
+			,ref_secnum        /*참조_일련번호*/
+			,depth_num         /*답변깊이*/
+			,ref_order_num     /*답변순서*/
+			,title_nm          /*제목명*/
+			,contents_cnt      /*내용*/
+			,user_id           /*사용자ID*/
+			,user_nm           /*사용자명*/
+			,user_ip_addr_nm   /*작성자_IP_명*/
+			,email_addr_nm     /*이메이일주소명*/
+			,reg_usr_id        /*등록자ID*/
+			,upt_usr_id        /*변경자ID*/
+			,reg_dt_time       /*등록일시*/
+			,upt_dt_time       /*변경일시*/
+		) VALUES (
+			 #{secnum       }    /*참조일련번호*/
+			,#{refSecnum    }    /*참조일련번호*/
+			,#{depthNum     }    /*답변깊이*/
+			,#{refOrderNum  }    /*답변순서*/
+			,#{titleNm      }    /*제목명*/
+			,#{contentsCnt  }    /*내용*/
+			,#{userId       }    /*사용자id*/
+			,#{userNm       }    /*사용자명*/
+			,#{userIpAddrNm }    /*작성자Ip명*/
+			,#{emailAddrNm  }    /*이메이일주소명*/
+			,#{regUsrId     }    /*등록자id*/
+			,#{uptUsrId     }    /*변경자id*/
+			,now()               /*등록일시*/
+			,now()               /*변경일시*/
+		) ON DUPLICATE KEY UPDATE
+			 upt_usr_id     = #{uptUsrId       }   /*변경자ID*/
+		  <if test="depthNum!=null and !depthNum.equals('')">
+		  ,depth_num      =  #{depthNum     }       /*답변깊이*/
+		  </if>	
+			<if test="refOrderNum!=null and !refOrderNum.equals('')">
+			,ref_order_num  =  #{refOrderNum  } /*답변순서*/
+			</if>
+			<if test="titleNm!=null and !titleNm.equals('')">
+			,title_nm        =  #{titleNm      }/*제목명*/
+			</if>
+			<if test="contentsCnt!=null and !contentsCnt.equals('')">
+			,contents_cnt    =  #{contentsCnt  }/*내용*/
+			</if>
+			<if test="userId!=null and !userId.equals('')">
+			,user_id         =  #{userId       }/*사용자ID*/
+			</if>
+			<if test="userNm!=null and !userNm.equals('')">
+			,user_nm         =  #{userNm       }/*사용자명*/
+			</if>
+			<if test="userIpAddrNm!=null and !userIpAddrNm.equals('')">
+			,user_ip_addr_nm  = #{userIpAddrNm }/*작성자_IP_명*/
+			</if>
+			<if test="emailAddrNm!=null and !emailAddrNm.equals('')">
+			,email_addr_nm    = #{emailAddrNm  } /*이메이일주소명*/
+			</if>
+			,upt_dt_time      = now() /*변경일시*/
+	</insert>
+	
+	<delete id="deleteBoardInfo" parameterType="BoardInfoDto" >
+		/** com.mydemo.mapper.board.BoardInfoMapper.deleteBoardInfo */
+		DELETE FROM board_info
+		WHERE secnum = #{secnum}
+	</delete>
+	
+</mapper>

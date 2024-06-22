@@ -1,0 +1,42 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{/layouts/layout}">
+	  
+  <th:block layout:fragment="content">  
+    <div class="row main-head ">
+      <div class="col-12 main-title ">  
+        # board 목록
+      </div> 
+    </div>
+    <div class="row ">
+      <div class="table-responsive portlet">
+        <table class="table table-sm table-hover tb-success" id="boardTable">
+			  <tr class="center">
+			    <th>#</th>
+			    <th>등록번호</th>
+			    <th>타이틀</th>
+			    <th>등록일</th>
+			    <th>사용자명</th>
+			  </tr> 
+
+			  <th:block th:each="board,stat:${boardList}">
+			  <tr>
+				<td align="center" th:text="${stat.count}"></td> 
+			    <td th:text="${board.secnum}"></td>
+			    <td th:text="${board.titleNm}"></td>
+			    <td th:text="${board.postDate}"></td>
+			    <td th:text="${board.userNm}"></td>
+			  </tr>
+			  </th:block>
+		  </table>
+      </div>
+    </div>
+	
+	<div class="row " style="float: right;">
+	<button class="btn primary" type="button" id="new_post_btn">게시판 새글</button>
+	</div>
+	
+	<script src="/js/board/board.js"></script>
+	
+  </th:block>      
+</html>

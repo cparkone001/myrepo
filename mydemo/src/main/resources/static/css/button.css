@@ -1,0 +1,120 @@
+.btn {
+	display: inline-block;
+	min-width: 80px;
+	height: 36px;
+	padding: 0 20px;
+	background-color: #f5f5f5;
+	border: 1px solid #f5f5f5;
+	border-radius: 0;
+	font-family: "Pretendard";
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 34px;
+	color: #777;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	cursor: pointer;
+}
+.btn.primary {
+	background-color: #191e2c;
+	border-color: #191e2c;
+	color: #fff;
+}
+.btn.secondary {
+	background-color: #f60;
+	border-color: #f60;
+	color: #fff;
+}
+.btn.gray {
+	background-color: #8d8d96;
+	border-color: #8d8d96;
+	color: #fff;
+}
+.btn.outline {
+	background: 0 0;
+	background-color: #fff;
+	border-color: #777;
+	color: #777;
+}
+.btn.outline.primary {
+	border-color: #777;
+	color: #000;
+}
+.btn.outline.secondary {
+	border-color: #f60;
+	color: #f60;
+}
+.btn.outline.gray {
+	border-color: #8d8d96;
+	color: #8d8d96;
+}
+.btn.outline.default {
+	border-color: #dbdbdb;
+	color: #000;
+}
+.btn.round {
+	border-radius: 6px;
+}
+.btn.w48 {
+	width: 48px;
+	min-width: 48px;
+	height: 30px;
+	padding: 0 10px;
+	line-height: 29px;
+}
+.btn.w72 {
+	width: 72px;
+	min-width: 72px;
+	height: 30px;
+	padding: 0 10px;
+	line-height: 29px;
+}
+.btn.w60 {
+	width: 60px;
+	min-width: 60px;
+	height: 30px;
+	padding: 0 8px;
+	line-height: 29px;
+}
+.btn.w88 {
+	width: 88px;
+	min-width: 88px;
+	padding: 0 8px;
+}
+.btn.w76 {
+	width: 76px;
+	min-width: 76px;
+	padding: 0 10px;
+}
+.btn.w64 {
+	width: 64px;
+	min-width: 64px;
+	padding: 0 10px;
+}
+.btn.center {
+	display: block;
+	margin: 0 auto;
+}
+
+.btn-up {
+	display: inline-block;
+	min-width: 30px;
+	height: 30px;
+	padding: 0;
+	background: url("../img/common/btn-up.png") no-repeat center;
+	background-size: 16px 16px;
+	border: 1px solid #ccc;
+	border-radius: 7px;
+}
+
+.btn-down {
+	display: inline-block;
+	min-width: 30px;
+	height: 30px;
+	padding: 0;
+	background: url("../img/common/btn-down.png") no-repeat center;
+	background-size: 16px 16px;
+	border: 1px solid #ccc;
+	border-radius: 7px;
+}

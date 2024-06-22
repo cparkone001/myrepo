@@ -1,0 +1,48 @@
+<script type="text/javascript" src="/js/vendor/jquery-3.6.2.min.js"></script>
+<script type="text/javascript" src="/js/vendor/jquery-ui.min.js"></script>
+  
+<link href="https://cdnjs.cloudflare.com/ajax/libs/tabulator/2.12.0/tabulator.min.css" rel="stylesheet">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tabulator/2.12.0/tabulator.min.js"></script>
+<button id="addrInfoBtn">현 접속 브라우져 주소 가져오기</button><br>
+<textarea id="addrName" rows="10" cols="70"></textarea>
+<script>
+	
+	$(document).ready(function() { 
+		$("#addrInfoBtn").on("click",function() {
+			//debugger;
+			askForLocation();	
+		});
+	});	
+	
+	function askForLocation () {
+	    navigator.geolocation.getCurrentPosition(getAddrInfo)
+	}
+	
+	function 	getAddrInfo (position) {
+	    const positionObj = {
+	        latitude: position.coords.latitude,
+	        longitude: position.coords.longitude
+	    }
+		//console.log(positionObj);
+		
+		let jsonObj = {};
+		jsonObj.latitude = 	positionObj.latitude;
+		jsonObj.longitude = positionObj.longitude;
+		
+		$.ajax({
+			type: "POST",
+			url : "/weather/getAddrName" ,			
+			data: JSON.stringify(jsonObj),
+			contentType : 'application/json;charset=UTF-8',
+			dataType:"json"})
+			.done(function(data, textStatus, xhr) {
+				$("#addrName").val(data.addressName);
+			})
+			.fail(function(xhr, textStatus, errorThrown) { })
+			.always(function(datar, textStatus, xhr) {
+			})
+			.then(function(data, textStatus, xhr) {
+			});			
+	}
+		
+</script>

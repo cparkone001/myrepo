@@ -1,0 +1,148 @@
+<script type="text/javascript" src="/js/vendor/jquery-3.6.2.min.js"></script>
+<script type="text/javascript" src="/js/vendor/jquery-ui.min.js"></script>
+  
+<link href="https://cdnjs.cloudflare.com/ajax/libs/tabulator/2.12.0/tabulator.min.css" rel="stylesheet">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tabulator/2.12.0/tabulator.min.js"></script>
+  
+<div id="example-table"></div>
+
+<table class="table" style="width: 500px;">
+  <tr>
+    <td>학 번</td><td><input type='text' id='studentNum' name="studentNum"/></td><td>이 름</td><td><input type='text' id='name' name="name"/></td>
+  </tr>
+  <tr>
+    <td>학 년</td><td><input type='text' id='gradeNum' name="gradeNum"/></td>	<td>주 소</td><td><input type='text' id='addr' name="addr"/></td>
+  </tr>
+</table>
+
+<button id="queryBtn">조회</button>
+<button id="registerBtn">등록</button>
+<button id="modifyBtn">수정</button>
+<button id="removeBtn">삭제</button>
+<button id="clearBtn">clear</button>
+
+<script>
+	//$(function(){
+	$(document).ready(function() { 
+					
+		$("#example-table").tabulator({
+			height:"311px",
+		    columns:[
+				{ title: "학번", field : "studentNum", width:120, align:"center" },
+				{ title: "이름", field : "name", 	width:150, align:"left" },
+				{ title: "학년", field : "gradeNum", width:100, align:"center" },
+				{ title: "주소", field : "addr", 	width:280, align:"left" },
+		    ],
+			//responsiveLayout:"collapse",
+			//responsiveLayoutCollapseStartOpen:false,
+			rowClick: function(e, row) {
+				
+				var rowData = $("#example-table").tabulator("getRowData", row );
+				console.log(rowData.studentNum);
+				console.log(rowData);
+				
+				$("#studentNum").val(rowData.studentNum);
+				$("#name").val(rowData.name);
+				$("#gradeNum").val(rowData.gradeNum);
+				$("#addr").val(rowData.addr);
+			}			
+		});
+	
+	  $("#queryBtn").on("click", function() {
+		$.ajax({
+			type: "POST",
+			url : "/student/studentList" ,			
+			//data: JSON.stringify(jsonObj),
+			contentType : 'application/json;charset=UTF-8',
+			dataType:"json"})
+			.done(function(data, textStatus, xhr) {
+				$("#example-table").tabulator("setData",data.dataList);
+				clearFieldData();
+			})
+			.fail(function(xhr, textStatus, errorThrown) { })
+			.always(function(datar, textStatus, xhr) {
+			})
+			.then(function(data, textStatus, xhr) {
+			});		
+	  });
+	  
+	  $("#registerBtn").on("click", function() {
+		$.ajax({
+			type: "POST",
+			url : "/student/registerStudent" ,
+			data: JSON.stringify(getFieldData()),
+			contentType : 'application/json;charset=UTF-8',
+			dataType:"json"}) 
+			.done(function(data, textStatus, xhr) {
+				$("#example-table").tabulator("setData",data.dataList);
+				clearFieldData();
+			})
+			.fail(function(xhr, textStatus, errorThrown) { })
+			.always(function(datar, textStatus, xhr) {
+			})
+			.then(function(data, textStatus, xhr) {
+			});		
+	  });
+	  
+	  $("#modifyBtn").on("click", function() {
+		$.ajax({
+			type: "POST",
+			url : "/student/modifyStudent" ,
+			data: JSON.stringify(getFieldData()),
+			contentType : 'application/json;charset=UTF-8',
+			dataType:"json"}) 
+			.done(function(data, textStatus, xhr) {
+				$("#example-table").tabulator("setData",data.dataList);
+				clearFieldData();
+			})
+			.fail(function(xhr, textStatus, errorThrown) { })
+			.always(function(datar, textStatus, xhr) {
+			})
+			.then(function(data, textStatus, xhr) {
+			});		
+	  });
+	  
+	  $("#removeBtn").on("click", function() {
+		$.ajax({
+			type: "POST",
+			url : "/student/removeStudent" ,
+			data: JSON.stringify(getFieldData()),
+			contentType : 'application/json;charset=UTF-8',
+			dataType:"json"}) 
+			.done(function(data, textStatus, xhr) {
+				
+				$("#example-table").tabulator("setData",data.dataList);
+				clearFieldData();
+			})
+			.fail(function(xhr, textStatus, errorThrown) { })
+			.always(function(datar, textStatus, xhr) {
+			})
+			.then(function(data, textStatus, xhr) {
+			});		
+	  });
+	  
+	  $("#clearBtn").on("click", function() {
+		clearFieldData();
+	  });
+  
+  });
+  
+  function clearFieldData() {
+	$("#studentNum").val('');
+	$("#name").val('');
+	$("#gradeNum").val('');
+	$("#addr").val('');	
+  }
+  
+  function getFieldData() {
+	let jsonData = {};
+	
+	jsonData.studentNum = $("#studentNum").val();
+	jsonData.name = $("#name").val();
+	jsonData.gradeNum = $("#gradeNum").val();
+	jsonData.addr = $("#addr").val();	
+	
+	return jsonData;	
+  }
+  
+</script>

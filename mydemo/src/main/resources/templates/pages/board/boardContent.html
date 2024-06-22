@@ -1,0 +1,43 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{/layouts/layout}">
+	  
+  <th:block layout:fragment="content">  
+    <div class="row main-head ">
+      <div class="col-12 main-title ">  
+        # board 내용
+      </div> 
+    </div>
+	
+	<div class="row ">
+		<form id="myBoardForm" name="myBoardForm">
+			<table style="width: 100%;">
+				<tr>
+					<td>제목</td><td><input type="text" id="titleNm" 	name="titleNm" th:value="${boardContent.titleNm}"></td>
+					<td>사용자</td><td><input type="text" id="userNm" name="userNm" th:value="${boardContent.userNm}"></td>
+				</tr>			
+				<tr>
+					<td colspan="4">내용</td>
+				</tr>			
+				<tr>
+					<td colspan="4"><textarea id="contentsCnt" name="contentsCnt" style="height: 500px;width: 100%;" th:text="${boardContent.contentsCnt}"></textarea></td>
+				</tr>
+			</table>
+			<input type="hidden" id="secnum" 	name="secnum"	 th:value="${boardContent.secnum}">
+			<input type="hidden" id="depthNum" 	name="depthNum" th:value="${boardContent.depthNum}">
+			<input type="hidden" id="postDate"	name="postDate" th:value="${boardContent.postDate}">
+			<input type="hidden" id="refSecnum"	name="refSecnum" th:value="${boardContent.refSecnum}">
+			<input type="hidden" id="refOrderNum" name="refOrderNum" th:value="${boardContent.refOrderNum}">
+		</form>
+	</div>
+	
+	<div style="float: right;">
+		<button class="btn primary" type="button" id="post_list_btn">목록</button>
+		<button class="btn primary" type="button" id="reply_post_btn">답글</button>
+		<button class="btn primary" type="button" id="new_post_btn">새글</button>
+	</div>
+	
+	<script src="/js/board/board.js"></script>
+	
+  </th:block>      
+</html>

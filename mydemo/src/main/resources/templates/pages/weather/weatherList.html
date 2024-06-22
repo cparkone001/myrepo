@@ -1,0 +1,73 @@
+<script type="text/javascript" src="/js/vendor/jquery-3.6.2.min.js"></script>
+<script type="text/javascript" src="/js/vendor/jquery-ui.min.js"></script>
+  
+<link href="https://cdnjs.cloudflare.com/ajax/libs/tabulator/2.12.0/tabulator.min.css" rel="stylesheet">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tabulator/2.12.0/tabulator.min.js"></script>
+
+<table class="table" style="width: 800px;">
+  <tr>
+    <td>기준일자(YYYYMMDD)</td><td><input type='text' id='baseDate' name="baseDate"/></td><td>기준시간(hhmm)</td><td><input type='text' id='baseTime' name="baseTime"/></td>
+  </tr>
+</table>
+
+<button id="queryBtn">조회</button>
+
+<div id="weather-table"></div>
+
+
+
+<script>
+	
+	//$(function(){
+	$(document).ready(function() { 
+
+		navigator.geolocation.getCurrentPosition((position) => {
+		  //doSomething(position.coords.latitude, position.coords.longitude);
+		 console.log("position.coords=>", position.coords);
+	  });	
+							
+		$("#weather-table").tabulator({
+			height:"800px",
+		    columns:[
+				{ title: "기준일", field : "baseDate", width:120, align:"center" },
+				{ title: "기준시간", field : "baseTime", width:100, align:"center" },
+				{ title: "에상일", field : "fcstDate", width:120, align:"center" },
+				{ title: "예상시간", field : "fcstTime", 	width:100, align:"left" },
+				{ title: "카테고리", field : "category", width:100, align:"center" },
+				{ title: "카테고리명", field : "categoryName", width:300, align:"left" },
+				{ title: "카테고리값", field : "fcstValue", 	width:130, align:"right" },
+				//nx;
+				//ny;
+			],
+			//responsiveLayout:"collapse",
+			//responsiveLayoutCollapseStartOpen:false,
+			rowClick: function(e, row) {
+				var rowData = $("#weather-table").tabulator("getRowData", row );
+				console.log(rowData.fcstValue);
+				console.log(rowData);
+			}			
+		});
+	
+	  $("#queryBtn").on("click", function() {
+		let jsonObj = {};
+		jsonObj.baseDate = $("#baseDate").val();
+		jsonObj.baseTime = $("#baseTime").val();
+	
+		$.ajax({
+			type: "POST",
+			url : "/weather/getWeatherForecast" ,			
+			data: JSON.stringify(jsonObj),
+			contentType : 'application/json;charset=UTF-8',
+			dataType:"json"})
+			.done(function(data, textStatus, xhr) {
+				$("#weather-table").tabulator("setData",data.itemList);
+			})
+			.fail(function(xhr, textStatus, errorThrown) { })
+			.always(function(datar, textStatus, xhr) {
+			})
+			.then(function(data, textStatus, xhr) {
+			});		
+	  });
+	  
+  }); // End of  $(document).ready(function() { 
+</script>

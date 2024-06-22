@@ -1,0 +1,89 @@
+  <!DOCTYPE>
+  <html>
+  <head>
+  <title>new document</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+   <link rel="stylesheet" type="text/css" th:href="@{/js/vendor/bootstrap-5.3.3/css/bootstrap.min.css}">
+   <script
+     src="https://code.jquery.com/jquery-2.2.4.js"
+     integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+     crossorigin="anonymous"></script>
+ 
+	<style>
+		tr.on {
+			background-color: pink;
+		}
+	</style>
+  
+	<script type="text/javascript">
+		function focuss(obj) {
+			var i;
+			
+			//debugger;
+			var tabNum = $("#testBody").children().length; //부모의 자식수. 즉, tbody의 tr의 갯수를 리턴합니다.
+			
+			let trList = $("#testBody").children();
+			for (i = 0; i < tabNum; i++)
+				trList[i].className = '';
+				
+				//obj.parentNode.children[i].className = '';
+			obj.className = 'on'; //obj에는 클릭한 tr의 정보가 넘어옵니다.
+		}
+	</script>
+  
+  </head>
+  <body>
+  
+<div class="container my-3">
+	<table class="table" id="testTable">
+		<thead class="table-dark">
+			<tr>
+				<th>학번</th>
+				<th>이름</th>
+				<th>학년</th>
+				<th>주소</th>
+			</tr>
+		</thead>
+
+		<tbody id="testBody">
+			<tr th:each="student : ${studentList}" >
+				<td th:text="${student.studentNum}"></td>
+				<td th:text="${student.name}"></td>
+				<td th:text="${student.gradeNum}"></td>
+				<td th:text="${student.addr}"></td>
+			</tr>
+		</tbody>
+	</table>
+	<button id="linkRegister">등록</button>
+</div>
+
+<script>
+	$(document).ready(function() {
+		
+		$("#linkRegister").on("click",function() {
+			self.location ="/student/registerPage";
+		});
+		
+	   //$('#testTable tbody').on('click', 'tr td:not(:first-child)', function () {
+	   $('#testTable tbody').on('click', 'tr', function () {
+			const selectedTr = $(this);
+			const tdList = selectedTr.children();
+			
+			const studentNum = tdList.eq(0).text();
+			const name = tdList.eq(1).text();
+			const gradeNum = tdList.eq(2).text();
+			const addr = tdList.eq(3).text();
+			console.log("studentNum->",studentNum);
+			console.log("name->",name);
+			console.log("gradeNum->",gradeNum);
+			console.log("addr->",addr);
+			
+			focuss($(this));
+	   });
+		
+	});
+	
+</script>
+</body>
+</html>

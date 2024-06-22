@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mydemo.mapper.addr.AddressInfoMapper">
+
+	<select id="selectGridXYInfo" resultType="AddressInfoDto">
+		/** com.mydemo.mapper.addr.AddressInfoMapper.selectAddressInfo */
+		SELECT	
+			 first_stage
+			,scecond_stage
+			,third_stage
+			,grd_x_val /*구획 X 좌표*/
+			,grd_y_val /*구획Y 좌표*/
+			,longitude_val /*경도값*/
+			,latitude_val /*위도값*/
+		FROM address_info
+		WHERE
+		  1=1 	
+		  <if test="firstStage!=null and !firstStage.equals('')">
+		   AND first_stage = #{firstStage}
+		  </if>
+		  <if test="scecondStage!=null and !scecondStage.equals('')">
+		   AND scecond_stage = #{scecondStage}
+		  </if>
+		  <if test="thirdStage!=null and !thirdStage.equals('')">
+		   AND third_stage = #{thirdStage}
+		  </if>
+	</select>
+	
+</mapper>

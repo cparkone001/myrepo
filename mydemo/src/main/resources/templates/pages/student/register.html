@@ -1,0 +1,36 @@
+<link rel="stylesheet" type="text/css" th:href="@{/js/vendor/bootstrap-5.3.3/css/bootstrap.min.css}">
+<script
+  src="https://code.jquery.com/jquery-2.2.4.js"
+  integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+  crossorigin="anonymous"></script>  
+  
+<form id="myform" action="/student/register" method="post">
+<table class="table" style="width: 300px;">
+  <tr>
+    <td>학 번</td><td><input type='text' id='studentNum' name="studentNum" /></td>
+  </tr>
+  <tr>
+    <td>이 름</td><td><input type='text' id='name' name="name"/></td>
+  </tr>
+  <tr>
+    <td>학 년</td><td><input type='text' id='gradeNum' name="gradeNum"/></td>
+  </tr>
+  <tr>
+    <td>주 소</td><td><input type='text' id='addr' name="addr"/></td>
+  </tr>
+  </table>
+
+  <button type="button" id="registerBtn">등록</button>
+</form>
+  
+<script>
+	$(document).ready(function() {
+		
+		$("#registerBtn").on("click",function() {
+			$("#myform").submit();
+			//$("#myform").attr("action","action.do").submit();
+		});
+		
+	});
+	
+</script>

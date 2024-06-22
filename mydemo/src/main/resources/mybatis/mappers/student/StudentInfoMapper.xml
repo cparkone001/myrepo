@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mydemo.mapper.student.StudentInfoMapper">
+
+	<select id="selectStudentInfo" resultType="StudentInfoDto">
+		/** com.mydemo.mapper.student.studentInfoMapper.selectStudentInfo */
+		SELECT
+			 student_num /*학번*/
+			,name        /*이름*/
+			,grade_num   /*학년*/
+			,addr        /*주소*/
+		FROM student_info
+		WHERE
+		  1=1 	
+		  <if test="studentNum!=null and !studentNum.equals('')">
+		   AND student_num = #{studentNum} /*학번*/
+		  </if>
+	</select>
+	
+	<update id="updateStudentInfo" parameterType="StudentInfoDto" >
+		/** com.mydemo.mapper.student.studentInfoMapper.updateStudentInfo */
+		UPDATE student_info
+		  SET 
+		  	<if test="name!=null and !name.equals('')">
+			 name        = #{name      } /*이름*/
+			</if> 
+			<if test="gradeNum!=null and !gradeNum.equals('')">
+			,grade_num   = #{gradeNum  } /*학년*/
+			</if>
+			<if test="addr!=null and !addr.equals('')">
+			,addr        = #{addr      } /*주소*/  
+			</if>	
+		WHERE
+		  	student_num = #{studentNum} /*학번*/
+	</update>	
+	
+	<insert id="insertStudentInfo" parameterType="StudentInfoDto">
+		/** com.mydemo.mapper.student.studentInfoMapper.insertStudentInfo */
+		INSERT INTO student_info (
+			 student_num /*학번*/
+			,name        /*이름*/
+			,grade_num   /*학년*/
+			,addr        /*주소*/
+		) VALUES (
+		   #{studentNum} /*학번*/
+		  ,#{name      }  /*이름*/
+		  ,#{gradeNum  } /*학년*/
+		  ,#{addr      }  /*주소*/
+		)
+	</insert>
+	
+	<delete id="deleteStudentInfo" parameterType="StudentInfoDto" >
+		/** com.mydemo.mapper.student.studentInfoMapper.deletestudentInfo */
+		DELETE FROM student_info 
+		WHERE
+		  student_num = #{studentNum} /*학번*/
+	</delete>
+	
+</mapper>
