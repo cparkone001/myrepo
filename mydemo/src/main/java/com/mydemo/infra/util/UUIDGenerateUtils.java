@@ -5,6 +5,7 @@ import java.util.UUID;
 
 public class UUIDGenerateUtils {
 
+	
     private final static int LENGTH_20_LONG_RADIX = 9;
     private final static int LENGTH_10_INT_RADIX = 9;
 
