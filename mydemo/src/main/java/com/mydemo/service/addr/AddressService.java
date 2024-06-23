@@ -123,6 +123,9 @@ public class AddressService {
         BufferedReader in = null;
         try {
         	
+        	
+        	
+        	
         	String sendUrl = "https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=126.98774913822886&y=37.565673167085976";
         	//String sendUrl = "https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=37.56567175993442&y=126.9877251159322";
         	
