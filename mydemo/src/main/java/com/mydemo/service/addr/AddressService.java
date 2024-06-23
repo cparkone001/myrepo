@@ -49,8 +49,10 @@ public class AddressService {
 		}
 		
 		AddressInfoDto p = new AddressInfoDto();
-		p.setFirstStage(pickDoc.getRegion1depthName()); //시
+		p.setFirstStage(pickDoc.getRegion1depthName()); //도/시
 		p.setThirdStage(pickDoc.getRegion3depthName()); //동
+		
+		//region_1depth_name":"서울특별시","region_2depth_name":"송파구"
 		
 		//주소 정보로 DB로 부터, 날짜를 위한 격자 Grd X, Y 값을 가져온다.
 		List<AddressInfoDto> addressList = addressInfoMapper.selectGridXYInfo(p);
@@ -60,7 +62,7 @@ public class AddressService {
 		addrDto.getGrdYVal();
 		
 		AddressInfoSvcDto rt = new AddressInfoSvcDto();
-		rt.setAddressName(pickDoc.getAddressName());
+		rt.setAddressName(pickDoc.getRegion1depthName() +" "+ pickDoc.getRegion2depthName());
 		rt.setGrdXVal(addrDto.getGrdXVal());
 		rt.setGrdYVal(addrDto.getGrdYVal());
 		return rt;
